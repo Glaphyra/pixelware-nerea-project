@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.bsd.pixelware</groupId>
+  <artifactId>pixelware-nerea-project</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>pixelware-nerea-project</name>
+  <description>Proyecto de BSD Varsity para Pixelware</description>
+  
+  <dependencies>
+  <!-- spring mvc -->
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-webmvc</artifactId>
+  		<version>4.3.7.RELEASE</version>
+  	</dependency>
+  	<!-- jstl -->
+  	<dependency>
+  		<groupId>javax.servlet.jsp.jstl</groupId>
+  		<artifactId>javax.servlet.jsp.jstl-api</artifactId>
+  		<version>1.2.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>taglibs</groupId>
+  		<artifactId>standard</artifactId>
+  		<version>1.1.2</version>
+  	</dependency>
+  	<!-- servlet -->
+  	<dependency>
+  		<groupId>javax.servlet</groupId>
+  		<artifactId>javax.servlet-api</artifactId>
+  		<version>3.1.0</version>
+  		<scope>provided</scope>
+  	</dependency>
+	<!-- HSQLDB -->
+	<dependency>
+	    <groupId>org.hsqldb</groupId>
+	    <artifactId>hsqldb</artifactId>
+	    <version>2.2.4</version>
+	</dependency>
+	<!-- JDBC -->
+	<dependency>
+    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jdbc</artifactId>
+	    <version>4.3.11.RELEASE</version>
+	</dependency>
+  </dependencies>
+  
+  <!-- construccion -->
+  <build>
+  	<!-- donde vamos a tener nuestro proyecto -->
+  	<sourceDirectory>src/main/java</sourceDirectory>
+  	<plugins>
+  		<!-- compilador de maven -->
+  		<plugin>
+  			<artifactId>maven-compiler-plugin</artifactId>
+  			<version>3.5.1</version>
+  			<configuration>
+  				<source>1.8</source>
+  				<target>1.8</target>
+  			</configuration>
+  		</plugin>
+  		<!-- para publicar en heroku -->
+        <plugin>
+          <groupId>com.heroku.sdk</groupId>
+          <artifactId>heroku-maven-plugin</artifactId>
+          <version>0.5.1</version>
+          <configuration>
+            <appName>pixelware-nerea-project</appName>
+          </configuration>
+        </plugin>
+  	</plugins>
+  </build>
+</project>
