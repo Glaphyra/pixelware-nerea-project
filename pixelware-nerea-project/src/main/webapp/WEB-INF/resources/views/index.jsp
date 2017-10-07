@@ -8,6 +8,8 @@
 		<title>Pixelware App</title>
 	</head>
 	<body>
+		<a href="logout">Cerrar sesión</a>
+		<br />
 		<c:if test="${!empty alert}">
 			<span style="{color:red}">${alert}</span>
 		</c:if>

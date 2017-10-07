@@ -17,6 +17,17 @@ public class User implements Serializable {
 		this.country = country;
 		this.birthDate = birthDate;
 	}
+	public User(RegisterForm registerForm) {
+		this.id = 0;
+		this.email = registerForm.getEmail();
+		this.password = registerForm.getPassword();
+		this.country = registerForm.getCountry();
+		this.birthDate = LocalDate.of(
+			Integer.parseInt(registerForm.getYear()),
+			Integer.parseInt(registerForm.getMonth()),
+			Integer.parseInt(registerForm.getDay())
+		);
+	}
 	
 	public Integer getId() {
 		return id;

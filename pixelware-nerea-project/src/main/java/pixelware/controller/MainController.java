@@ -1,5 +1,10 @@
 package pixelware.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pixelware.model.ApixuEntry;
 import pixelware.model.City;
+import pixelware.model.User;
 
 /*
  * Controlador principal de la aplicación
@@ -20,11 +26,26 @@ public class MainController {
 	 * Método de negocio para la página principal
 	 */
 	@GetMapping("/")
-	public ModelAndView getIndex() {
+	public ModelAndView getIndex(HttpServletResponse resp, HttpSession session) {
+		//Recogemos el objeto user de la sesión
+		User user = (User)session.getAttribute("user");
 		ModelAndView model = new ModelAndView();
-		model.setViewName("index");
-		model.addObject("city", new City());
-		return model;
+		if (user == null) {
+			//Si no hay sesión, redireccionamos a la página de login
+			try {
+				resp.sendRedirect("/login");
+				return null;
+			} catch (IOException e) {
+				model.setViewName("error");
+				model.addObject("message", "Ha habido un error desconocido.");
+				return model;
+			}
+		} else {
+			//Si hay un usuario, cargamos la página principal
+			model.setViewName("index");
+			model.addObject("city", new City());
+			return model;
+		}
 	}
 	
 	/*
@@ -46,5 +67,18 @@ public class MainController {
         	model.addObject("alert", "No hemos encontrado ningún resultado para esa búsqueda");
         }
 		return model;
+	}
+	
+	@GetMapping("/logout")
+	public ModelAndView logout(HttpServletResponse resp, HttpSession session) {
+		session.removeAttribute("user");
+		try {
+			resp.sendRedirect("/login");
+			return null;
+		} catch (IOException e) {
+			ModelAndView model = new ModelAndView("error");
+			model.addObject("message", "Ha habido un error desconocido.");
+			return model;
+		}
 	}
 }
