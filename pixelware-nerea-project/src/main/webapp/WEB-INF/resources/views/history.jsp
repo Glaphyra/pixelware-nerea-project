@@ -24,22 +24,8 @@
 		<%-- Insertamos la cabecera de la página --%>
 		<ng-jumbotron></ng-jumbotron>
 		
-		<div class="container">
-			<%--Formulario para buscar la temperatura de una ciudad --%>
-			<form:form action="getDegrees" method="post" modelAttribute="city" name="cityForm">
-				<div class="input-group" ng-class="{'has-success has-feedback': (cityForm.name.$valid && cityForm.name.$dirty), 'has-error has-feedback': (cityForm.name.$invalid && cityForm.name.$dirty)}">
-					<form:input path="name" class="form-control" placeholder="Buscar ciudad" ng-model="name" required="required" />
-					<div class="input-group-btn">
-						<button class="btn btn-default w3-cyan w3-text-white" type="submit" ng-class="{'active' : cityForm.$valid, 'disabled' : cityForm.$invalid}">
-							<i class="glyphicon glyphicon-search"></i>
-						</button>
-					</div>
-				</div>
-			</form:form>
-		</div>
-		
-		<%-- Tabla para ver las diez últimas búsquedas (solo si tiene elementos) --%>
-		<div class="container topMargin" ng-show="history.length > 0">
+		<%-- Tabla para ver todas las búsquedas --%>
+		<div class="container topMargin">
 			<table class="table">
             	<thead>
                 	<tr class="w3-cyan">
@@ -49,7 +35,7 @@
                     </tr>
                 </thead>
             	<tbody>
-                	<tr ng-repeat="h in history | limitTo: 10" class="w3-hover-cyan">
+                	<tr ng-repeat="h in history" class="w3-hover-cyan">
                     	<td>{{h.location.name}}</td>
                     	<td>{{h.location.country}}</td>
                     	<td>{{h.current.temp_c}}ºC</td>

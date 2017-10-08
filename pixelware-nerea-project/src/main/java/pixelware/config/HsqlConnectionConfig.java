@@ -10,7 +10,6 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 @Configuration
 public class HsqlConnectionConfig {
-	
 	/*
 	 * Método para devolver la conexión de HSQL creando la tabla en memoria
 	 */

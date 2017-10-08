@@ -2,6 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
+<%-- Declaramos el módulo de la aplicación --%>
 <html ng-app="pixelwareApp">
 	<head>
 		<title>Login</title>
@@ -10,13 +11,17 @@
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	</head>
 	
+	<%-- Declaramos el controlador de la aplicación --%>
 	<body ng-controller="appLoginController">
+		<%-- Insertamos la barra de navegación --%>
 		<ng-navbar></ng-navbar>
+		<%-- Si hay un mensaje de alerta, cargamos la capa alerta con su directiva --%>
 		<c:if test="${!empty alert}">
 			<ng-alert ng-init="message = '${alert}'"></ng-alert>
 		</c:if>
 		
 		<div class="container">
+			<%-- Formulario de inicio de sesión --%>
 			<form:form class="form-horizontal" method="post" modelAttribute="loginUser" name="loginForm">
 				<div class="form-group"ng-class="{'has-success has-feedback': (loginForm.email.$valid && loginForm.email.$dirty), 'has-error has-feedback': (loginForm.email.$invalid && loginForm.email.$dirty)}">
 					<label class="control-label col-sm-3" for="email">Email:</label>
@@ -45,6 +50,7 @@
 				 
 			</form:form>
 		</div>
+		<%-- Enlace a registro --%>
 		<div class="container w3-right-align">
 			<u><a href="register">¿Aún no estás registrado?</a></u>
         </div>

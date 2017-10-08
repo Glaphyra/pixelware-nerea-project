@@ -1,12 +1,21 @@
 package pixelware.model;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 //ignorar las demás propiedades recibidas de JSON
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Location {
+public class Location implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String name, country;
 
+	public Location() {}
+	public Location(String name, String country) {
+		this.name = name;
+		this.country = country;
+	}
+	
 	public String getName() {
 		return name;
 	}

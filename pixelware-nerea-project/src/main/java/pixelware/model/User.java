@@ -2,12 +2,15 @@ package pixelware.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String email, password, country;
 	private LocalDate birthDate;
+	private List<ApixuEntry> history;
 	
 	public User() {}
 	public User(Integer id, String email, String password, String country, LocalDate birthDate) {
@@ -16,6 +19,7 @@ public class User implements Serializable {
 		this.password = password;
 		this.country = country;
 		this.birthDate = birthDate;
+		this.history = new ArrayList<>();
 	}
 	public User(RegisterForm registerForm) {
 		this.id = 0;
@@ -27,6 +31,7 @@ public class User implements Serializable {
 			Integer.parseInt(registerForm.getMonth()),
 			Integer.parseInt(registerForm.getDay())
 		);
+		this.history = new ArrayList<>();
 	}
 	
 	public Integer getId() {
@@ -58,6 +63,15 @@ public class User implements Serializable {
 	}
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
+	}
+	public List<ApixuEntry> getHistory() {
+		return history;
+	}
+	public void setHistory(List<ApixuEntry> history) {
+		this.history = history;
+	}
+	public void addHistory(ApixuEntry history) {
+		this.history.add(history);
 	}
 	
 	@Override

@@ -11,6 +11,7 @@
 		<title>Error</title>
 	</head>
 	<body>
+		<%-- Barra de navegación con botón de inicio --%>
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -19,6 +20,7 @@
 			</div>
 		</nav>
 		
+		<%-- Contenido de la página para mostrar el error que se pueda haber producido --%>
 		<div class="jumbotron w3-red">
 			<div class="container text-center">
 				<h1><span class="glyphicon glyphicon-warning-sign"></span> ¡Error! <span class="glyphicon glyphicon-warning-sign"></span></h1>

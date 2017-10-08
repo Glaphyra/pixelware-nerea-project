@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,6 +15,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import pixelware.model.ApixuEntry;
+import pixelware.model.Current;
+import pixelware.model.Location;
 import pixelware.model.User;
 
 /*
@@ -43,6 +48,7 @@ public class UserDao implements IUserDao {
 	/*
 	 * Método para obtener un usuario cuyos campos email y contraseña coincidan con los argumentos de la función
 	 * Seleccionamos todos los datos para crear el objeto User y enviamos los parámetros dentro de un array de objetos
+	 * A continuación hacemos una búsqueda del historial de búsqueda del usuario y añadimos los resultados al array del usuario
 	 */
 	@Override
 	public User getUser(String email, String password) throws EmptyResultDataAccessException {
@@ -62,6 +68,21 @@ public class UserDao implements IUserDao {
 				return new User(res.getInt("id"), res.getString("email"), res.getString("password"), res.getString("country"), localdate);
 			}
 		});
+		
+		List<Map<String,Object>> rows = template.queryForList("SELECT name, country, degrees FROM History WHERE FK_user = " + user.getId());
+		for (Map<String,Object> row : rows)
+			user.addHistory(new ApixuEntry(new Location((String)row.get("name"), (String)row.get("country")), new Current((Double)row.get("degrees"))));
+		
 		return user;
+	}
+
+	/*
+	 * Método para insertar una búsqueda exitosa en la base de datos
+	 */
+	@Override
+	public int addHistory(int id, ApixuEntry history) {
+		return template.update("INSERT INTO History(name,country,degrees,FK_user) VALUES (?, ?, ?, ?)", new Object[] {
+				history.getLocation().getName(), history.getLocation().getCountry(), history.getCurrent().getTemp_c(), id
+			});
 	}
 }

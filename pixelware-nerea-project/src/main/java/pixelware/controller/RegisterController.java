@@ -26,6 +26,9 @@ import pixelware.validators.RegisterValidator;
  */
 @Controller
 public class RegisterController {
+	/*
+	 * Recuperar el bean de servicios y el validador
+	 */
 	@Autowired
 	private IUserService service;
 	@Autowired
@@ -77,6 +80,7 @@ public class RegisterController {
 						response.sendRedirect("/");
 						return null;
 					} catch (IOException e) {
+						//si hubiese algún error al redireccionar, carga la página "error"
 						model.setViewName("error");
 						model.addObject("alert", "Ha habido un error desconocido.");
 					}

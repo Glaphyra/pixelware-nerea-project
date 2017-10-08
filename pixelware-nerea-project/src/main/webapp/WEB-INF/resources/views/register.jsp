@@ -2,6 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
+<%-- Declaramos el módulo de la aplicación --%>
 <html ng-app="pixelwareApp">
 	<head>
 		<title>New User</title>
@@ -11,13 +12,17 @@
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	</head>
 	
+	<%-- Declaramos el controlador de la aplicación --%>
 	<body ng-controller="appRegisterController">
+		<%-- Insertamos la barra de navegación --%>
 		<ng-navbar></ng-navbar>
+		<%-- Si hay un mensaje de alerta, cargamos la capa alerta con su directiva --%>
 		<c:if test="${!empty alert}">
 			<ng-alert ng-init="message = '${alert}'"></ng-alert>
 		</c:if>
 		
 		<div class="container">
+			<%-- Formulario de registro --%>
 			<form:form class="form-horizontal" method="post" modelAttribute="registerUser" name="registerForm">
 				<div class="form-group">
 					<label class="control-label col-sm-3" for="email">Email:</label>

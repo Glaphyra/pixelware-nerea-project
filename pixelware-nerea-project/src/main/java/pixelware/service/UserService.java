@@ -7,11 +7,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import pixelware.dao.IUserDao;
+import pixelware.model.ApixuEntry;
 import pixelware.model.User;
 
-/*
- * Clase servicio para insertar un usuario y buscar uno por email y contraseña
- */
 @Service
 public class UserService implements IUserService {
 	@Autowired
@@ -25,5 +23,10 @@ public class UserService implements IUserService {
 	@Override
 	public User getUser(String email, String password) throws EmptyResultDataAccessException {
 		return dao.getUser(email, password);
+	}
+
+	@Override
+	public int addHistory(int id, ApixuEntry history) {
+		return dao.addHistory(id, history);
 	}
 }

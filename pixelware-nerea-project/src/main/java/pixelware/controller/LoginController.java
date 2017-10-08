@@ -76,7 +76,7 @@ public class LoginController {
 			} catch (EmptyResultDataAccessException e) {
 				//Si devuelve la excepción es porque no hay ningún usuario que coincida con los campos
 				//Enviamos el mensaje de aviso
-				model.addObject("alert", "Usuario o contraseña incorrectas");
+				model.addObject("alert", "Usuario o contraseña incorrectas.");
 				//El objeto loginUser es el mismo que ha mandado el usuario
 				model.addObject("loginUser", loginUser);
 				//Y devolvemos al login

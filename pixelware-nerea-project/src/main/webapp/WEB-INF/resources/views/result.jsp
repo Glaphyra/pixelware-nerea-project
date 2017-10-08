@@ -2,6 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
+<%-- Declaramos el módulo de la aplicación --%>
 <html ng-app="pixelwareApp">
 	<head>
 		<title>Pixelware App</title>
@@ -12,14 +13,19 @@
 		<link rel="stylesheet" href="resources/styles/css.css">
 	</head>
 	
-	<body ng-controller="appController">
+	<%-- Declaramos el controlador de la aplicación e inicializamos la variable history (del scope) con los datos obtenidos por Java --%>
+	<body ng-controller="appController" data-ng-init="setList('${history}')">
+		<%-- Insertamos la barra de navegación --%>
 		<ng-navbar></ng-navbar>
+		<%-- Si hay un mensaje de alerta, cargamos la capa alerta con su directiva --%>
 		<c:if test="${!empty alert}">
 			<ng-alert ng-init="message = '${alert}'"></ng-alert>
 		</c:if>
+		<%-- Insertamos la cabecera de la página --%>
 		<ng-jumbotron></ng-jumbotron>
 		
 		<div class="container">
+			<%--Formulario para buscar la temperatura de una ciudad --%>
 			<form:form action="getDegrees" method="post" modelAttribute="city" name="cityForm">
 				<div class="input-group" ng-class="{'has-success has-feedback': (cityForm.name.$valid && cityForm.name.$dirty), 'has-error has-feedback': (cityForm.name.$invalid && cityForm.name.$dirty)}">
 					<form:input path="name" class="form-control" placeholder="Buscar ciudad" ng-model="name" required="required" />
@@ -31,6 +37,7 @@
 				</div>
 			</form:form>
 			
+			<%-- Panel para mostrar los resultados de la búsqueda --%>
 			<br/>
 			<div class="panel panel-default">
 				<div class="panel-heading w3-cyan">${weather.getLocation().getName()} (${weather.getLocation().getCountry()})</div>
@@ -38,6 +45,31 @@
 			</div>
 		</div>
 		
+		<%-- Tabla para ver las diez últimas búsquedas. se ve siempre porque, tras llegar aquí, siempre habrá al menos una --%>
+		<div class="container topMargin">
+			<table class="table">
+            	<thead>
+                	<tr class="w3-cyan">
+                    	<th>Ciudad</th>
+                    	<th>Pais</th>
+                    	<th>Temperatura</th>
+                    </tr>
+                </thead>
+            	<tbody>
+                	<tr ng-repeat="h in history | limitTo: 10" class="w3-hover-cyan">
+                    	<td>{{h.location.name}}</td>
+                    	<td>{{h.location.country}}</td>
+                    	<td>{{h.current.temp_c}}ºC</td>
+                    </tr>
+                    <tr>
+                    	<td colspan="3" class="center w3-cyan">
+                    		<a href="history">Ver el historial completo</a>
+                    	</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
 		<!-- Carga de recursos JavaScript -->
 		<!-- AngularJS -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
