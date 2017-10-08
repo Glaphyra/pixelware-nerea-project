@@ -66,7 +66,7 @@ public class RegisterController {
 				i = service.addUser(user);
 				//Si devuelve -1 es porque ha habido un error y lo notificamos
 				if (i <= -1) {
-					model.addObject("message", "No se ha podido registrar. Compruebe los campos y vuelva a intentarlo.");
+					model.addObject("alert", "No se ha podido registrar. Compruebe los campos y vuelva a intentarlo.");
 					model.setViewName("register");
 					model.addObject("registerUser", new RegisterForm());
 				} else {
@@ -78,12 +78,12 @@ public class RegisterController {
 						return null;
 					} catch (IOException e) {
 						model.setViewName("error");
-						model.addObject("message", "Ha habido un error desconocido.");
+						model.addObject("alert", "Ha habido un error desconocido.");
 					}
 				}
 			} catch (ParseException e) {
 				//Si se produce un error al pasar de Localdate a Date
-				model.addObject("message", "Hubo un error con la fecha de nacimiento. Vuelva a intentarlo");
+				model.addObject("alert", "Hubo un error con la fecha de nacimiento. Vuelva a intentarlo");
 				model.setViewName("register");
 				model.addObject("registerUser", new RegisterForm());
 			}

@@ -71,12 +71,12 @@ public class LoginController {
 					return null;
 				} catch (IOException e) {
 					model.setViewName("error");
-					model.addObject("message", "Ha habido un error desconocido.");
+					model.addObject("alert", "Ha habido un error desconocido.");
 				}
 			} catch (EmptyResultDataAccessException e) {
 				//Si devuelve la excepción es porque no hay ningún usuario que coincida con los campos
 				//Enviamos el mensaje de aviso
-				model.addObject("message", "Usuario o contraseña incorrectas");
+				model.addObject("alert", "Usuario o contraseña incorrectas");
 				//El objeto loginUser es el mismo que ha mandado el usuario
 				model.addObject("loginUser", loginUser);
 				//Y devolvemos al login

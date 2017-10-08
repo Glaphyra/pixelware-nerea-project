@@ -37,7 +37,7 @@ public class MainController {
 				return null;
 			} catch (IOException e) {
 				model.setViewName("error");
-				model.addObject("message", "Ha habido un error desconocido.");
+				model.addObject("alert", "Ha habido un error desconocido.");
 				return model;
 			}
 		} else {
@@ -52,7 +52,7 @@ public class MainController {
 	 * Método de negocio para, obteniendo una ciudad de un formulario, llamar al servicio web Rest y obtener la temperatura
 	 */
 	@PostMapping("/getDegrees")
-	public ModelAndView getDegrees(@ModelAttribute City city) {
+	public ModelAndView getDegrees(@ModelAttribute("city") City city) {
 		//Objeto para obtener, del SWRest, solo los datos de ciudad, pais y temperatura
         ApixuEntry weather = null;
 		ModelAndView model = new ModelAndView();
@@ -77,7 +77,7 @@ public class MainController {
 			return null;
 		} catch (IOException e) {
 			ModelAndView model = new ModelAndView("error");
-			model.addObject("message", "Ha habido un error desconocido.");
+			model.addObject("alert", "Ha habido un error desconocido.");
 			return model;
 		}
 	}
