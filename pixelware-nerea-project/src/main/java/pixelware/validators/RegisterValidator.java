@@ -94,6 +94,7 @@ public class RegisterValidator implements Validator {
 	                } else {
 	                	max = 28;
 	                }
+	            	break;
 	            //Cualquier otro mes introducido por error será inválido
 	            default:
 	            	max = Integer.MIN_VALUE;

@@ -4,11 +4,11 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 public class FrontController extends AbstractAnnotationConfigDispatcherServletInitializer {
 	/*
-	 * Sin clases de configuración no web
+	 * Clase de configuración de base de datos
 	 */
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] {};
+		return new Class<?>[] {HsqlConnectionConfig.class};
 	}
 
 	/*
@@ -16,7 +16,7 @@ public class FrontController extends AbstractAnnotationConfigDispatcherServletIn
 	 */
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] {WebConfig.class, HsqlConnectionConfig.class};
+		return new Class<?>[] {WebConfig.class};
 	}
 
 	/*
